@@ -1,6 +1,13 @@
 # 2023-24-Dash
 2023-24 Dash
 
+
+# Current Notes:
+<details>
+  This revision has not been compiled, nor flashed to the ESP. 
+  Comments starting with LOOK INTO -> are lines or chunks of code with components that need deeper understanding or can be improved. Riley/Henry here would be a good place to start.
+</details>
+
 # Hardware
 ## Can Transceiver (MCP2561/2FD)
 [Data Sheet](https://ww1.microchip.com/downloads/en/DeviceDoc/20005284A.pdf)  
