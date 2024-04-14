@@ -1,11 +1,11 @@
 
 
-#include <CAN_config.h>
+#include <CAN_config.h> // LOOK INTO -> not sure where this is, or if it is required. Will test.
 #include <ESP32CAN.h>
 
 
 
-// ------------------- PIN Definitions -------------------------
+// ------------------- PIN Definitions ----------------------------------------------------------------------------------------------------------------------
 // LOOK INTO -> Pins may not be accurate, not sure if gpio or schematic pins should be used. Currently schematic pin numbers are used with the corresponding gpio pins commented out
 
 #define CANLOW 39 // GPIO 43
@@ -38,7 +38,13 @@
 #define lcdINT 28 // GPIO 33
 #define adc1CS 19 // GPIO 15
 #define adc2CS 20 // GPIO 16
-//--------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------------ Initializations --------------------------------
+
+// ESP32 dual Core 
+TaskHandle_t CoreA;
+TaskHandle_t CoreB;
 
 // --------------------- Global Definitions --------------------
 
@@ -51,7 +57,7 @@ const long interval = 200; // RPM Blink interval (in millis)
 
 
 
-// ------------------------------------------------------ Functions -----------------------------------------------
+// ------------------------------------------------------ Functions ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // --------- Shift Lights --------
 void stage0() { // Turns off all lights
   analogWrite(shiftOne, 0);
@@ -150,7 +156,87 @@ void stage6() {// this is the blinking red stage
   shiftLightsActive = true;
  
 }
-// -------------------------------
+void set_light_stage(uint16_t current_rpm, char current_gear) { // Determines the shift light stage based on current engine RPM
+  current_rpm = (FlipBytes_2B(current_rpm));
+  current_gear = current_gear & 0x0F;
+  
+  if (current_gear == 0b00001111) {
+      if ((current_rpm >= 11000) && (current_rpm < 11400)) {
+        stage1();
+      } else if ((current_rpm >= 11400) && (current_rpm < 11800)) {
+        stage2();
+      } else if ((current_rpm >= 11800) && (current_rpm < 12200)) {
+        stage3();
+      } else if ((current_rpm >= 12200) && (current_rpm < 12600)) {
+        stage4();
+      } else if ((current_rpm >= 12600) && (current_rpm < 13000)) {
+        stage5();
+      } else if ((current_rpm >= 13000)) {
+        stage6();
+      } else {
+        stage0();
+      }
+  }
+    else if (current_gear == 0b00000001){
+
+      if ((current_rpm >= 11000) && (current_rpm < 11400)) {
+        stage1();
+      } else if ((current_rpm >= 11400) && (current_rpm < 11800)) {
+        stage2();
+      } else if ((current_rpm >= 11800) && (current_rpm < 12200)) {
+        stage3();
+      } else if ((current_rpm >= 12200) && (current_rpm < 12600)) {
+        stage4();
+      } else if ((current_rpm >= 12600) && (current_rpm < 13000)) {
+        stage5();
+      } else if ((current_rpm >= 13000)) {
+        stage6();
+      } else {
+        stage0();
+      }
+    }
+
+
+    else if (current_gear == 0b00000010){
+
+      if ((current_rpm > 10200) && (current_rpm < 10600)) {
+        stage1();
+      } else if ((current_rpm >= 10600) && (current_rpm < 11000)) {
+        stage2();
+      } else if ((current_rpm >= 11000) && (current_rpm < 11400)) {
+        stage3();
+      } else if ((current_rpm >= 11400) && (current_rpm < 11800)) {
+        stage4();
+      } else if ((current_rpm >= 11800) && (current_rpm < 12200)) {
+        stage5();
+      } else if (current_rpm >= 12200) {
+        stage6();
+      } else {
+        stage0();
+      }
+    }
+
+      else if (current_gear == 0b00000011){
+
+      if ((current_rpm > 12000) && (current_rpm < 12500)) {
+        stage1();
+      } else if ((current_rpm >= 12500) && (current_rpm < 13000)) {
+        stage2();
+      } else if ((current_rpm >= 13000) && (current_rpm < 13500)) {
+        stage3();
+      } else if ((current_rpm >= 13500) && (current_rpm < 14000)) {
+        stage4();
+      } else if ((current_rpm >= 14000) && (current_rpm < 14500)) {
+        stage5();
+      } else if (current_rpm >= 14500) {
+        stage6();
+      } else {
+        stage0();
+      }
+      }
+  }
+
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
