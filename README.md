@@ -46,8 +46,8 @@ lost
 
   <summary>Resources</summary>
 
-  [FT81x advanced embedded video engine datasheet](https://support.newhavendisplay.com/hc/en-us/article_attachments/6963168242711)
-  [FT800 Example with Arduino](https://www.ftdichip.com/Support/Documents/AppNotes/AN_275_FT800_Example_with_Arduino.pdf)
+  [FT81x advanced embedded video engine datasheet](https://support.newhavendisplay.com/hc/en-us/article_attachments/6963168242711)  
+  [FT800 Example with Arduino](https://www.ftdichip.com/Support/Documents/AppNotes/AN_275_FT800_Example_with_Arduino.pdf)  
   [FT800 Arduino Library Docs](https://www.ftdichip.com/Support/Documents/AppNotes/AN_318_Arduino_Library_For_FT800_Series.pdf)  
   [Emulator Library Docs](https://www.ftdichip.com/Support/Documents/AppNotes/AN_281_FT800_Emulator_Library_User_Guide.pdf)  
   [Programmers Guide](https://www.ftdichip.com/Support/Documents/ProgramGuides/FT800%20Programmers%20Guide.pdf)  
